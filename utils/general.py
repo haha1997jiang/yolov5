@@ -1033,7 +1033,10 @@ def non_max_suppression(
 
     device = prediction.device
     mps = "mps" in device.type  # Apple MPS
+    dml = "privateuseone" in device.type  # Apple MPS
     if mps:  # MPS not fully supported yet, convert tensors to CPU before NMS
+        prediction = prediction.cpu()
+    if dml:
         prediction = prediction.cpu()
     bs = prediction.shape[0]  # batch size
     nc = prediction.shape[2] - nm - 5  # number of classes

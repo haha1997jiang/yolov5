@@ -139,8 +139,13 @@ def select_device(device="", batch_size=0, newline=True):
         s += "MPS\n"
         arg = "mps"
     else:  # revert to CPU
-        s += "CPU\n"
-        arg = "cpu"
+        # s += "CPU\n"
+        # arg = "cpu"
+        import torch_directml
+        devices = torch_directml.device(0)
+        n = 0
+        s += r"dml:" + str(torch_directml.device_name(0))
+        arg = torch_directml.device(0)
 
     if not newline:
         s = s.rstrip()

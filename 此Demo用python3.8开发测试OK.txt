@@ -1,0 +1,2 @@
+python3.8安装包自带ctypes
+请到 https://www.python.org/ 下载安装包
